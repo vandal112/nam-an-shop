@@ -118,7 +118,7 @@ function routeCategoryFromUrl(){return new URL(location.href).searchParams.get('
 function urlForCategory(category){
   const url=new URL(location.href);
   if(category&&category!=='all'){url.searchParams.set('category',category);url.hash='products';}
-  else{url.searchParams.delete('category');url.hash='top';}
+  else{url.searchParams.delete('category');if(url.hash==='#products')url.hash='top';}
   return url;
 }
 function applyShopRoute(category,{push=false,replace=false,scroll=false}={}){
@@ -311,6 +311,7 @@ $('logoutBtn').onclick=async () => { try { await signOut(auth); closeLayers(); n
 $('saveProductBtn').onclick=saveProduct; $('previewImportBtn').onclick=previewImport; $('runImportBtn').onclick=runImport; $('reloadOrdersBtn').onclick=()=>loadOrders(); $('adminToggle').onclick=() => { if ($('adminToggle').classList.contains('hidden')) return; closeLayers(); setupAdminShell(); $('adminPanel').classList.remove('hidden'); document.querySelector('main').classList.add('hidden'); document.querySelector('.footer').classList.add('hidden'); document.querySelector('.topbar').classList.add('hidden'); document.querySelector('.announcement').classList.add('hidden'); loadDashboard(); loadReports(); loadAuditLogs(); loadOrders(); loadStock(); loadBank(); loadAdminContact(); loadAdminSiteTheme(); loadAdminPromotions(); window.scrollTo(0,0); }; $('closeAdmin').onclick=() => { $('adminPanel').classList.add('hidden'); ['main','.footer','.topbar','.announcement'].forEach(selector => document.querySelector(selector).classList.remove('hidden')); window.scrollTo(0,0); };
 $('adminOrders').addEventListener('focusin',e => { if(e.target.matches('select')) e.target.dataset.previous=e.target.value; }); $('adminOrders').addEventListener('change',e => { if(e.target.matches('select[data-order]')) updateOrder(e.target); }); $('adminOrders').addEventListener('click',e=>{const save=e.target.closest('[data-save-order]'),print=e.target.closest('[data-print-order]');if(save)saveOrderDetails(save.dataset.saveOrder);if(print)printOrder(print.dataset.printOrder);});
 $('categoryGrid').onclick=e=>{const button=e.target.closest('[data-category]');if(!button)return;applyShopRoute(button.dataset.category,{push:true,scroll:true});};
+document.querySelector('.brand')?.addEventListener('click',e=>{e.preventDefault();applyShopRoute('all',{push:true,scroll:true});});
 window.addEventListener('popstate',()=>applyShopRoute(routeCategoryFromUrl(),{scroll:true}));
 $('cartItems').addEventListener('change',e=>{if(e.target.matches('[data-cart-qty]'))setCartQuantity(e.target);});
 $('cartItems').addEventListener('keydown',e=>{if(e.key==='Enter' && e.target.matches('[data-cart-qty]'))e.target.blur();});
