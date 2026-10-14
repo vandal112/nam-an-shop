@@ -200,3 +200,126 @@ body.no-effects *,body.no-effects *::before,body.no-effects *::after{animation:n
   .category-grid .category{flex-basis:136px;min-width:136px}
   .category-grid .category-art{height:62px}
 }
+
+/* Cleaner admin workspace */
+.admin{background:#f6f3ef;padding:22px 0 64px}
+.admin .container{width:min(1180px,calc(100% - 36px))}
+.admin-header{
+  position:static!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center!important;
+  gap:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px 20px!important;
+  margin-bottom:12px;
+  box-shadow:0 10px 30px rgba(75,44,34,.06);
+}
+.admin-header h2{margin:4px 0 0!important;font-size:clamp(28px,3vw,38px)}
+.admin-tabs{
+  position:sticky!important;
+  top:0!important;
+  z-index:12!important;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  background:#f6f3ef!important;
+  border:0!important;
+  padding:10px 0 12px!important;
+  margin:0!important;
+  scrollbar-width:thin;
+}
+.admin-tabs button{
+  flex:0 0 auto;
+  min-height:44px;
+  border-radius:999px!important;
+  border:1px solid #e2d8d0!important;
+  padding:10px 18px!important;
+  background:#fff!important;
+  box-shadow:0 6px 18px rgba(75,44,34,.05);
+}
+.admin-tabs button.active{
+  background:var(--accent)!important;
+  border-color:var(--accent)!important;
+  color:#fff!important;
+  box-shadow:0 10px 24px rgba(180,80,67,.22)!important;
+}
+.admin-toolbar{
+  position:sticky;
+  top:64px;
+  z-index:11;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,460px);
+  gap:12px;
+  align-items:center;
+  background:#f6f3ef;
+  padding:0 0 14px;
+  margin-bottom:4px;
+}
+.admin-tab-hint{
+  margin:0;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  padding:11px 14px;
+  color:var(--muted);
+  font-size:13px;
+}
+.admin-quick-search{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:8px!important;
+  align-items:center!important;
+  margin:0!important;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  padding:8px;
+}
+.admin-quick-search input{border:0!important;box-shadow:none!important;margin:0!important;background:#faf7f4!important}
+.admin-quick-search button{min-height:42px;padding-inline:18px}
+.admin-layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:14px!important;align-items:start}
+.admin-card{
+  grid-column:span 6;
+  border:1px solid var(--line);
+  border-radius:14px!important;
+  padding:18px!important;
+  box-shadow:0 8px 24px rgba(75,44,34,.05);
+}
+.admin-card.wide-card,.admin-card[data-admin-section="orders"],.admin-card[data-admin-section="products"],.admin-card[data-admin-section="stock"]{grid-column:1/-1}
+.admin-card h3{font-size:22px;margin:0 0 10px!important}
+.admin-card h3+p{margin-top:-2px;margin-bottom:16px}
+.admin-card label{font-size:12px;text-transform:none;color:#28312e}
+.admin-card input,.admin-card select,.admin-card textarea{
+  min-height:42px;
+  margin-top:5px!important;
+  border-radius:10px!important;
+  background:#fffdfb!important;
+}
+.form-grid{gap:12px!important}
+.admin-row,.order-row{
+  border:1px solid var(--line)!important;
+  border-radius:12px;
+  padding:14px!important;
+  margin:10px 0 0!important;
+  background:#fffdfb;
+}
+.order-row ul{margin:8px 0 4px;padding-left:18px}
+.order-status{margin:2px 2px 2px 0}
+.order-admin-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.dashboard-grid,.report-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#adminProducts,#stockHistory,#adminCategories,#bankTransactions{max-height:min(58vh,620px)!important}
+@media(max-width:900px){
+  .admin .container{width:calc(100% - 20px)}
+  .admin-header{grid-template-columns:1fr;padding:16px!important}
+  .admin-toolbar{position:static;grid-template-columns:1fr}
+  .admin-layout{grid-template-columns:1fr!important}
+  .admin-card{grid-column:1/-1}
+  .order-admin-grid,.dashboard-grid,.report-grid{grid-template-columns:1fr!important}
+  .admin-tabs{top:0!important}
+}
