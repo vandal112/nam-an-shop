@@ -35,13 +35,13 @@ function notify(message, error = false) { const el = $('toast'); el.innerHTML = 
 async function api(path, options = {}) {
   const token=localStorage.getItem('sessionToken')||'';
   const headers={'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{}) ,...(options.headers||{})};
-  const bases=[API_BASE];
-  if(API_BASE) bases.push('');
+  const bases=API_BASE?[API_BASE]:[''];
   let lastError;
   for(const base of bases){
     try{
       const res = await fetch(base+path,{...options,credentials:base?'omit':'same-origin',headers});
-      const data=await res.json();
+      const type=res.headers.get('content-type')||'';
+      const data=type.includes('application/json')?await res.json():{message:base?'Máy chủ không trả dữ liệu JSON. Kiểm tra tunnel/backend.':'GitHub Pages không chạy được API. Kiểm tra tunnel/backend.'};
       if(data.sessionToken)localStorage.setItem('sessionToken',data.sessionToken);
       if(!res.ok) throw new Error(data.message||'Có lỗi xảy ra');
       if(base!==API_BASE) API_BASE=base;
